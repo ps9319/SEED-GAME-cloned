@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyInfos), typeof(EnemyMovement), typeof(EnemyHealth))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyInfos infos;
