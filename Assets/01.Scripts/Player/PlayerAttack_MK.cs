@@ -14,6 +14,7 @@ public class PlayerAttack_MK : MonoBehaviour
     
     private void Awake()
     {
+        weaponComponent = weapon.GetComponent<Weapon>();
         attackCooldown = weaponComponent.AttackSpeed;
     }
 
