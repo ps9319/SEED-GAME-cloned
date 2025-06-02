@@ -7,6 +7,20 @@ public class Enemy : MonoBehaviour
 
     public static event Action<Enemy> onEnemyDied;
     public EnemyInfos enemyInfos => infos;
+
+    public EnemyMovement EnemyMovement {get; private set; }
+    public EnemyAI EnemyAi {get; private set; }
+    public EnemyHealth EnemyHealth {get; private set; }
+    // public EnemyAttack EnemyAttack {get; private set; }
+    
+    private void Awake()
+    {
+        EnemyMovement = GetComponent<EnemyMovement>();
+        EnemyAi = GetComponent<EnemyAI>();
+        EnemyHealth = GetComponent<EnemyHealth>();
+        // EnemyAttack = GetComponent<EnemyAttack>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
     {
