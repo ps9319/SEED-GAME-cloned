@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyInfos infos;
 
-    public static event Action<Enemy> OnEnemyDied;
+    public static event Action<Enemy> onEnemyDied;
     public EnemyInfos enemyInfos => infos;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
 
     void die()
     {
-        OnEnemyDied?.Invoke(this);
+        onEnemyDied?.Invoke(this);
         Destroy(this.gameObject);
     }
 }
