@@ -10,10 +10,6 @@ public class Weapon : MonoBehaviour
     // 무기마다 AttackSpeed를 애니메이션 재생 속도로
     public float AttackSpeed => attackInfos.attackSpeed;
 
-    private void Awake()
-    {
-        attackInfos = GetComponent<AttackInfos>();
-    }
     
 }
 

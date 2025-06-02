@@ -11,10 +11,6 @@ public class EnemyHealth : MonoBehaviour
     
     public event Action onDeath;
     
-    private void Awake()
-    {
-        infos = GetComponent<EnemyInfos>();
-    }
 
     private void Start()
     {
