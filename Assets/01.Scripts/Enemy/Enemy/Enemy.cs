@@ -25,16 +25,22 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void OnEnable()
     {
-        Invoke(nameof(die), 15f);
+        Invoke(nameof(Die), 15f);
+        EnemyHealth.onDeath += Die;
     }
 
+    void OnDisable()
+    {
+        EnemyHealth.onDeath -= Die;
+    }
+    
     // Update is called once per frame
     void Update()
     {
         
     }
 
-    void die()
+    void Die()
     {
         onEnemyDied?.Invoke(this);
         Destroy(this.gameObject);
