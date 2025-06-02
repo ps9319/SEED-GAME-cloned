@@ -20,12 +20,14 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnHitboxTriggerEnter(Collider other)
     {
         Weapon weapon = other.GetComponent<Weapon>();
         if (weapon == null) return;
         float attackDamage = weapon.Damage;
         TakeDamage(attackDamage);
+        // EnemyHealthUI enemyHealthUI = GetComponentInChildren<EnemyHealthUI>();
+        // enemyHealthUI.TakeDamage(attackDamage);
     }
 
     private void TakeDamage(float damage)
