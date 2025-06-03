@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private float jumpCooldown = 1.0f;
     private float jumpTimer = 0f;
-    private PlayerAttack attackScript;
+    private PlayerAttack_MK attackScript;
     public bool isRolling = false;
     private float rollTimer = 0f;
     private Vector3 rollDirection;
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
-        attackScript = GetComponent<PlayerAttack>();
+        attackScript = GetComponent<PlayerAttack_MK>();
 
         capsule = GetComponent<CapsuleCollider>();
         originalHeight = capsule.height;

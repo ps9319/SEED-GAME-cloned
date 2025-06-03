@@ -26,8 +26,9 @@ public class EnemyHealth : MonoBehaviour
         if (weapon == null) return;
         float attackDamage = weapon.Damage;
         TakeDamage(attackDamage);
-        // EnemyHealthUI enemyHealthUI = GetComponentInChildren<EnemyHealthUI>();
-        // enemyHealthUI.TakeDamage(attackDamage);
+        //Todo EnemyHealth, EnemyHealthUI와 통합 필요
+        EnemyHealthUI enemyHealthUI = GetComponentInChildren<EnemyHealthUI>();
+        enemyHealthUI.TakeDamage(attackDamage);
     }
 
     private void TakeDamage(float damage)
