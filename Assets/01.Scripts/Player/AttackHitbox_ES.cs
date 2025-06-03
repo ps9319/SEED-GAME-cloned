@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class AttackHitbox : MonoBehaviour
 {
+    
+    [SerializeField] private float stunDuration = 1.5f;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
@@ -9,8 +11,15 @@ public class AttackHitbox : MonoBehaviour
             EnemyHealthUI enemyHealth = other.GetComponentInChildren<EnemyHealthUI>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(20f); // µ¥¹ÌÁö °ªÀº »óÈ²¿¡ ¸Â°Ô Á¶Á¤
+                enemyHealth.TakeDamage(20f); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È²ï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½
             }
+        }
+
+        // ìŠ¤í„´
+        var stun = other.GetComponent<EnemyStun>();
+        if (stun != null)
+        {
+            stun.ApplyStun(stunDuration);
         }
     }
 }

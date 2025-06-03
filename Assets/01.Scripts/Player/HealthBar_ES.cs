@@ -18,20 +18,20 @@ public class HealthBar_ES : MonoBehaviour
 
     void Update()
     {
-        // ½ºÆäÀÌ½º¹Ù ´©¸£¸é µ¥¹ÌÁö 10
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 10
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(10f);
         }
 
-        // ÁÂÅ¬¸¯ ´©¸£¸é Ã¼·Â È¸º¹ 5
-        if (Input.GetMouseButtonDown(0))  // 0: ¿ÞÂÊ Å¬¸¯
+        // ï¿½ï¿½Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ È¸ï¿½ï¿½ 5
+        if (Input.GetMouseButtonDown(0))  // 0: ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½
         {
             Heal(5f);
         }
     }
 
-    void TakeDamage(float damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
