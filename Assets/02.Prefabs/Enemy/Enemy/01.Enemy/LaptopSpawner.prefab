@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6817407423822620587
 Transform:
   m_ObjectHideFlags: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnArea: {fileID: 7562918613070013282}
-  enemyPrefab: {fileID: 895233791870159762, guid: b3a3128e59ab14effb32d3e681e48ed2, type: 3}
-  maxEnemies: 5
+  enemyPrefab: {fileID: 9028945745305603211, guid: 9b27fc14825484fffb8558d4a33adcfc, type: 3}
+  maxEnemies: 2
   spawnRate: 5
 --- !u!65 &7562918613070013282
 BoxCollider:
