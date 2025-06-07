@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyStun : MonoBehaviour
 {
-    private bool isStunned = false;
+    public bool isStunned = false;
     private float stunTimer = 1.5f;
 
     [SerializeField] private MonoBehaviour[] componentsToDisableDuringStun;

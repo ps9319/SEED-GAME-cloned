@@ -7,12 +7,13 @@ public class EnemyHealth : MonoBehaviour
     private float maxHealth => infos.maxHealth;
     private float currentHealth { get; set; }
     private bool isDead { get; set; } = false;
-    
+    private EnemyStun stun;
     public event Action onDeath;
 
     private void Awake()
     {
         infos = GetComponent<Enemy>().enemyInfos;
+        stun = GetComponent<EnemyStun>();
     }
 
     private void Start()
@@ -34,6 +35,7 @@ public class EnemyHealth : MonoBehaviour
     private void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        stun.ApplyStun(10f);
         if (currentHealth <= 0 && !isDead)
         {
             Die();

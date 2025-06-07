@@ -8,9 +8,11 @@ public class HealthBar_ES : MonoBehaviour
     private float currentHealth;
 
     private float originalWidth;
+    private PlayerStun stun;
 
     void Start()
     {
+        stun = GetComponent<PlayerStun>();
         currentHealth = maxHealth;
         originalWidth = HealthBarfillRect.sizeDelta.x;
         UpdateHealthBar();
@@ -18,22 +20,22 @@ public class HealthBar_ES : MonoBehaviour
 
     void Update()
     {
-        // �����̽��� ������ ������ 10
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(10f);
-        }
+        
+    }
 
-        // ��Ŭ�� ������ ü�� ȸ�� 5
-        if (Input.GetMouseButtonDown(0))  // 0: ���� Ŭ��
-        {
-            Heal(5f);
-        }
+    public void OnHitboxTriggerEnter(Collider other)
+    {
+        Weapon weapon = other.GetComponent<Weapon>();
+        if (weapon == null) return;
+
+        float damage = weapon.Damage;
+        TakeDamage(damage);
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        stun.ApplyStun(3f);
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
         UpdateHealthBar();
     }
