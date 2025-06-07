@@ -19,12 +19,14 @@ public class EnemyAI : MonoBehaviour
     private Transform player;
     private EnemyMovement movement;
     private Animator animator;
+    private EnemyStun stun;
 
     void Awake()
     {
         movement = GetComponent<EnemyMovement>();
         animator = GetComponent<Animator>();
         enemyInfos = GetComponent<Enemy>().enemyInfos;
+        stun = GetComponent<EnemyStun>();
     }
 
     void Start()
@@ -45,6 +47,20 @@ public class EnemyAI : MonoBehaviour
         EnemyState newState = DetermineState(distance);
 
         if (player == null) return;
+
+        if (stun != null && stun.isStunned)
+        {
+            if (currentState != EnemyState.Hit)
+            {
+                animator.ResetTrigger(currentState.ToString());
+                animator.SetTrigger(EnemyState.Hit.ToString());
+                currentState = EnemyState.Hit;
+
+                movement.Stop();
+            }
+            return; // 스턴 중에는 상태머신 정지
+        }
+
         // Chase일 때는 계속해서 Move를 호출해야함
         if (currentState == EnemyState.Chase)
             movement.Move(player.position);
