@@ -10,7 +10,6 @@ public class ItemToggle_ES: MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            // 스프라이트 서로 교환
             Sprite temp = ItemToggleBar1.sprite;
             ItemToggleBar1.sprite = ItemToggleBar2.sprite;
             ItemToggleBar2.sprite = temp;

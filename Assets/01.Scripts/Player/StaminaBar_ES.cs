@@ -18,14 +18,14 @@ public class StaminaBar_ES : MonoBehaviour
 
     void Update()
     {
-        // ½ºÆäÀÌ½º¹Ù ´©¸£¸é ½ºÅÂ¹Ì³ª 10 ¼Ò¸ğ
+        // ìŠ¤í˜ì´ìŠ¤ë°” ëˆ„ë¥´ë©´ ìŠ¤íƒœë¯¸ë‚˜ 10 ì†Œëª¨
         if (Input.GetKeyDown(KeyCode.Space))
         {
             UseStamina(10f);
         }
 
-        // ÁÂÅ¬¸¯ ´©¸£¸é ½ºÅÂ¹Ì³ª 5 È¸º¹
-        if (Input.GetMouseButtonDown(0))  // 0: ¿ŞÂÊ Å¬¸¯
+        // ì¢Œí´ë¦­ ëˆ„ë¥´ë©´ ìŠ¤íƒœë¯¸ë‚˜ 5 íšŒë³µ
+        if (Input.GetMouseButtonDown(0))  // 0: ì™¼ìª½ í´ë¦­
         {
             RecoverStamina(5f);
         }
