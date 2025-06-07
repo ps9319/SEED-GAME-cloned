@@ -11,7 +11,7 @@ public class AttackHitbox : MonoBehaviour
             EnemyHealthUI enemyHealth = other.GetComponentInChildren<EnemyHealthUI>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(20f); // ������ ���� ��Ȳ�� �°� ����
+                enemyHealth.TakeDamage(20f);
             }
         }
 

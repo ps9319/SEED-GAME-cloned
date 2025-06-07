@@ -6,10 +6,10 @@ public class EnemyHealthUI: MonoBehaviour
     private float currentHealth;
 
     [Header("UI")]
-    [SerializeField] private RectTransform healthBarFill; // Fill ÀÌ¹ÌÁöÀÇ RectTransform
+    [SerializeField] private RectTransform healthBarFill; // Fill ì´ë¯¸ì§€ì˜ RectTransform
     [SerializeField] private GameObject healthBarUI;
 
-    private float originalWidth; // ½ÃÀÛ ³Êºñ ±â¾ï
+    private float originalWidth; // ì‹œì‘ ë„ˆë¹„ ê¸°ì–µ
     private float timeSinceLastHit = 0f;
     private bool isRecovering = false;
     private float recoverySpeed = 10f;
@@ -42,7 +42,7 @@ public class EnemyHealthUI: MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("ÇÇ°İµÊ: " + damage);
+        Debug.Log("í”¼ê²©ë¨: " + damage);
 
         currentHealth -= damage;
         currentHealth = Mathf.Max(currentHealth, 0f);
