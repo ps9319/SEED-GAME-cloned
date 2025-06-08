@@ -22,7 +22,8 @@ public class EnemyHealthUI: MonoBehaviour
         if (healthBarFill != null)
             originalWidth = healthBarFill.sizeDelta.x;
 
-        healthBarUI.SetActive(false);
+        // 체력 안 보이게 하게 하는 코드
+        // healthBarUI.SetActive(false);
     }
 
     void Update()
@@ -62,7 +63,9 @@ public class EnemyHealthUI: MonoBehaviour
         {
             currentHealth = maxHealth;
             isRecovering = false;
-            Invoke(nameof(HideHealthBar), hideDelay);
+
+            //체력 안 보이게 하는 코드 실행함
+            // Invoke(nameof(HideHealthBar), hideDelay);
         }
 
         UpdateHealthBar();
