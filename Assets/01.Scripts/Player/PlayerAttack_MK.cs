@@ -6,8 +6,6 @@ public class PlayerAttack_MK : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject weapon;
 
-    [SerializeField] private Transform firePoint; //Throw 관련
-
     private Weapon weaponComponent;
     public bool isAttacking = false;
     private float attackCooldown; // 애니메이션 길이만큼
