@@ -6,17 +6,21 @@ public class PlayerAttack_MK : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject weapon;
 
-    [SerializeField] private Transform firePoint;  // 발사 위치
-
-    public float speed = 10f;
-    public float lifeTime = 2f;
+    [SerializeField] private Transform firePoint; //Throw 관련
 
     private Weapon weaponComponent;
     public bool isAttacking = false;
     private float attackCooldown; // 애니메이션 길이만큼
     
     private PlayerMovement movement;
-    
+
+    //Thorw 관련
+    public float speed = 10f;
+    public float lifeTime = 1f;
+    private bool isThrown = false;
+    private float throwTimer = 0f;
+    private bool isHit = false;
+
     private void Awake()
     {
         weaponComponent = weapon.GetComponent<Weapon>();
@@ -39,12 +43,30 @@ public class PlayerAttack_MK : MonoBehaviour
             animator.SetTrigger("Attack");
             StartCoroutine(Attack());
         }
-        // 원거리 공격 입력
-        if (Input.GetMouseButtonDown(1))
+
+        // 던지기
+        if (Input.GetMouseButtonDown(1) && !isThrown)
         {
             ThrowWeapon();
+            StartCoroutine(ThrowAttack());
         }
 
+        // 던져진 상태면 앞으로 이동
+        if (isThrown)
+        {
+            weapon.transform.position += weapon.transform.forward * speed * Time.deltaTime;
+
+            throwTimer += Time.deltaTime;
+            if (throwTimer >= lifeTime)
+            {
+                // Destroy 대신 비활성화
+                weapon.SetActive(false);
+                isThrown = false;
+
+                // 무기 되돌리기 (리셋)
+                ResetWeapon();
+            }
+        }
     }
 
     IEnumerator Attack()
@@ -55,11 +77,44 @@ public class PlayerAttack_MK : MonoBehaviour
         DisableAttackHitbox();
     }
 
+    IEnumerator ThrowAttack()
+    {
+        isHit = false;
+        EnableAttackHitbox();
+
+        float timer = 0f;
+        while (timer < lifeTime)
+        {
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        DisableAttackHitbox();
+    }
+
     private void ThrowWeapon()
     {
-        weapon.transform.Translate(Vector3.forward * speed * Time.deltaTime);
-        Destroy(weapon.gameObject, lifeTime);
+        isThrown = true;
+        throwTimer = 0f;
+
+        weapon.transform.SetParent(null);  // 부모에서 분리
     }
+
+    private void ResetWeapon()
+    {
+        // 위치와 회전 초기화
+        weapon.transform.SetParent(transform);
+        weapon.transform.localPosition = new Vector3(0, 0, 0);
+        weapon.transform.localRotation = Quaternion.identity;
+
+        // 타이머 리셋
+        throwTimer = 0f;
+
+        // 다시 활성화
+        weapon.SetActive(true);
+    }
+
+
 
     private void EnableAttackHitbox()
     {
@@ -70,5 +125,6 @@ public class PlayerAttack_MK : MonoBehaviour
     {
         weaponComponent.Hitbox.enabled = false;
         isAttacking = false;
+        isThrown = false;
     }
 }
