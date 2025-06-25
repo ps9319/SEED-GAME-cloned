@@ -6,6 +6,11 @@ public class PlayerAttack_MK : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject weapon;
 
+    [SerializeField] private Transform firePoint;  // 발사 위치
+
+    public float speed = 10f;
+    public float lifeTime = 2f;
+
     private Weapon weaponComponent;
     public bool isAttacking = false;
     private float attackCooldown; // 애니메이션 길이만큼
@@ -34,6 +39,12 @@ public class PlayerAttack_MK : MonoBehaviour
             animator.SetTrigger("Attack");
             StartCoroutine(Attack());
         }
+        // 원거리 공격 입력
+        if (Input.GetMouseButtonDown(1))
+        {
+            ThrowWeapon();
+        }
+
     }
 
     IEnumerator Attack()
@@ -43,7 +54,13 @@ public class PlayerAttack_MK : MonoBehaviour
         yield return new WaitForSeconds(attackCooldown);
         DisableAttackHitbox();
     }
-    
+
+    private void ThrowWeapon()
+    {
+        weapon.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        Destroy(weapon.gameObject, lifeTime);
+    }
+
     private void EnableAttackHitbox()
     {
         weaponComponent.Hitbox.enabled = true;

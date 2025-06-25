@@ -8,7 +8,7 @@ public class ItemToggle_ES: MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             Sprite temp = ItemToggleBar1.sprite;
             ItemToggleBar1.sprite = ItemToggleBar2.sprite;
