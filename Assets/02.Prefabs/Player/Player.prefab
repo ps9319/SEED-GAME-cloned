@@ -3765,6 +3765,8 @@ MonoBehaviour:
   animator: {fileID: 3011424196792945995}
   weapon: {fileID: 8608566618650770787}
   isAttacking: 0
+  speed: 10
+  lifeTime: 1
 --- !u!1 &4634195502032523716
 GameObject:
   m_ObjectHideFlags: 0
