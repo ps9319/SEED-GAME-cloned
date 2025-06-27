@@ -38,7 +38,7 @@ public class EnemyHealthUI: MonoBehaviour
         if (currentHealth < maxHealth)
         {
             timeSinceLastHit += Time.deltaTime;
-            if (timeSinceLastHit >= 5f)
+            if (timeSinceLastHit >= 5f && currentHealth > 0)
                 isRecovering = true;
         }
 
