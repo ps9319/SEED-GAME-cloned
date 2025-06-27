@@ -12,20 +12,15 @@ public class EnemyHealthUI: MonoBehaviour
     private bool isRecovering = false;
     private float recoverySpeed = 10f;
     private float hideDelay = 1f;
-    private EnemyInfos enemyInfos;
+    private EnemyHealth enemyHealth;
     private float maxHealth;
     private float currentHealth;
 
-    private void Awake()
-    {
-        enemyInfos = GetComponentInParent<Enemy>().enemyInfos;
-        maxHealth = enemyInfos.maxHealth;
-        currentHealth = maxHealth;
-    }
-
     void Start()
     {
-
+        enemyHealth = GetComponentInParent<EnemyHealth>();
+        maxHealth = enemyHealth.getMaxHealth();
+        
         if (healthBarFill != null)
             originalWidth = healthBarFill.sizeDelta.x;
 
@@ -35,6 +30,8 @@ public class EnemyHealthUI: MonoBehaviour
 
     void Update()
     {
+        currentHealth = enemyHealth.getCurrentHealth();
+        
         if (currentHealth < maxHealth)
         {
             timeSinceLastHit += Time.deltaTime;
@@ -50,11 +47,6 @@ public class EnemyHealthUI: MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("피격됨: " + damage);
-
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(currentHealth, 0f);
-
         UpdateHealthBar();
 
         healthBarUI.SetActive(true);
