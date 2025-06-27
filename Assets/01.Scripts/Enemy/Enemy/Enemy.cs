@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyAI), typeof(EnemyMovement), typeof(EnemyHealth))]
+[RequireComponent(typeof(AudioSource))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyInfos infos;
