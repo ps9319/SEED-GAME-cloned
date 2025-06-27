@@ -1,10 +1,8 @@
+using System;
 using UnityEngine;
 
 public class EnemyHealthUI: MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f;
-    private float currentHealth;
-
     [Header("UI")]
     [SerializeField] private RectTransform healthBarFill; // Fill 이미지의 RectTransform
     [SerializeField] private GameObject healthBarUI;
@@ -14,11 +12,15 @@ public class EnemyHealthUI: MonoBehaviour
     private bool isRecovering = false;
     private float recoverySpeed = 10f;
     private float hideDelay = 1f;
+    private EnemyHealth enemyHealth;
+    private float maxHealth;
+    private float currentHealth;
 
     void Start()
     {
-        currentHealth = maxHealth;
-
+        enemyHealth = GetComponentInParent<EnemyHealth>();
+        maxHealth = enemyHealth.getMaxHealth();
+        
         if (healthBarFill != null)
             originalWidth = healthBarFill.sizeDelta.x;
 
@@ -28,10 +30,12 @@ public class EnemyHealthUI: MonoBehaviour
 
     void Update()
     {
+        currentHealth = enemyHealth.getCurrentHealth();
+        
         if (currentHealth < maxHealth)
         {
             timeSinceLastHit += Time.deltaTime;
-            if (timeSinceLastHit >= 5f)
+            if (timeSinceLastHit >= 5f && currentHealth > 0)
                 isRecovering = true;
         }
 
@@ -43,11 +47,6 @@ public class EnemyHealthUI: MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("피격됨: " + damage);
-
-        currentHealth -= damage;
-        currentHealth = Mathf.Max(currentHealth, 0f);
-
         UpdateHealthBar();
 
         healthBarUI.SetActive(true);
