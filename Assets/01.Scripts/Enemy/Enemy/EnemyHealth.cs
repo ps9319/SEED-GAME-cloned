@@ -59,7 +59,7 @@ public class EnemyHealth : MonoBehaviour
 
     public float getCurrentHealth()
     {
-        return maxHealth;
+        return currentHealth;
     }
     
 }

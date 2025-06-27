@@ -20,6 +20,7 @@ public class EnemyHealthUI: MonoBehaviour
     {
         enemyHealth = GetComponentInParent<EnemyHealth>();
         maxHealth = enemyHealth.getMaxHealth();
+        currentHealth = maxHealth;
         
         if (healthBarFill != null)
             originalWidth = healthBarFill.sizeDelta.x;
@@ -47,12 +48,10 @@ public class EnemyHealthUI: MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        currentHealth = enemyHealth.getCurrentHealth();
         UpdateHealthBar();
-
-        healthBarUI.SetActive(true);
         timeSinceLastHit = 0f;
         isRecovering = false;
-        CancelInvoke(nameof(HideHealthBar));
     }
 
     void RecoverHealth()
@@ -76,10 +75,5 @@ public class EnemyHealthUI: MonoBehaviour
         Vector2 newSize = healthBarFill.sizeDelta;
         newSize.x = originalWidth * ratio;
         healthBarFill.sizeDelta = newSize;
-    }
-
-    void HideHealthBar()
-    {
-        healthBarUI.SetActive(false);
     }
 }
