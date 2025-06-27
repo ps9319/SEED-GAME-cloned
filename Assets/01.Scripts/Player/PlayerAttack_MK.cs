@@ -20,7 +20,6 @@ public class PlayerAttack_MK : MonoBehaviour
     public float lifeTime = 1f;
     private bool isThrown = false;
     private float throwTimer = 0f;
-    private bool isHit = false;
 
     private void Awake()
     {
@@ -80,7 +79,6 @@ public class PlayerAttack_MK : MonoBehaviour
 
     IEnumerator ThrowAttack()
     {
-        isHit = false;
         EnableAttackHitbox();
 
         float timer = 0f;
