@@ -37,7 +37,7 @@ public class EnemyHealth : MonoBehaviour
     private void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        stun.ApplyStun(10f);
+        stun.ApplyStun(1f);
         // 피격 효과음 재생
         audioSource.PlayOneShot(infos.hitSound);
         if (currentHealth <= 0 && !isDead)
@@ -51,4 +51,15 @@ public class EnemyHealth : MonoBehaviour
         onDeath();
         isDead = true;
     }
+
+    public float getMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public float getCurrentHealth()
+    {
+        return maxHealth;
+    }
+    
 }
