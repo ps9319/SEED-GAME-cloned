@@ -58,6 +58,11 @@ public class EnemyStun : MonoBehaviour
         Debug.Log("몬스터 스턴 적용 + 애니메이션");
     }
 
+    public void ApplyStun()
+    {
+        ApplyStun(stunTimer);
+    }
+
     void EndStun()
     {
         isStunned = false;
