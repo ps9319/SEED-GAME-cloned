@@ -8,8 +8,6 @@ public class EnemyHealthUI: MonoBehaviour
     [SerializeField] private GameObject healthBarUI;
 
     private float originalWidth; // 시작 너비 기억
-    private float timeSinceLastHit = 0f;
-    private bool isRecovering = false;
     private float recoverySpeed = 10f;
     private float hideDelay = 1f;
     private EnemyHealth enemyHealth;
@@ -32,42 +30,14 @@ public class EnemyHealthUI: MonoBehaviour
     void Update()
     {
         currentHealth = enemyHealth.getCurrentHealth();
-        
-        if (currentHealth < maxHealth)
-        {
-            timeSinceLastHit += Time.deltaTime;
-            if (timeSinceLastHit >= 5f && currentHealth > 0)
-                isRecovering = true;
-        }
-
-        if (isRecovering)
-        {
-            RecoverHealth();
-        }
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth = enemyHealth.getCurrentHealth();
         UpdateHealthBar();
-        timeSinceLastHit = 0f;
-        isRecovering = false;
     }
-
-    void RecoverHealth()
-    {
-        currentHealth += recoverySpeed * Time.deltaTime;
-        if (currentHealth >= maxHealth)
-        {
-            currentHealth = maxHealth;
-            isRecovering = false;
-
-            //체력 안 보이게 하는 코드 실행함
-            // Invoke(nameof(HideHealthBar), hideDelay);
-        }
-
-        UpdateHealthBar();
-    }
+    
 
     void UpdateHealthBar()
     {
