@@ -1,10 +1,8 @@
+using System;
 using UnityEngine;
 
 public class EnemyHealthUI: MonoBehaviour
 {
-    [SerializeField] private float maxHealth = 100f;
-    private float currentHealth;
-
     [Header("UI")]
     [SerializeField] private RectTransform healthBarFill; // Fill 이미지의 RectTransform
     [SerializeField] private GameObject healthBarUI;
@@ -14,10 +12,19 @@ public class EnemyHealthUI: MonoBehaviour
     private bool isRecovering = false;
     private float recoverySpeed = 10f;
     private float hideDelay = 1f;
+    private EnemyInfos enemyInfos;
+    private float maxHealth;
+    private float currentHealth;
+
+    private void Awake()
+    {
+        enemyInfos = GetComponentInParent<Enemy>().enemyInfos;
+        maxHealth = enemyInfos.maxHealth;
+        currentHealth = maxHealth;
+    }
 
     void Start()
     {
-        currentHealth = maxHealth;
 
         if (healthBarFill != null)
             originalWidth = healthBarFill.sizeDelta.x;
