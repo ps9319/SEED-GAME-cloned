@@ -3766,6 +3766,9 @@ MonoBehaviour:
   isAttacking: 0
   speed: 10
   lifeTime: 1
+  isSmashing: 0
+  isThrusting: 0
+  isCoding: 0
 --- !u!1 &4634195502032523716
 GameObject:
   m_ObjectHideFlags: 0
