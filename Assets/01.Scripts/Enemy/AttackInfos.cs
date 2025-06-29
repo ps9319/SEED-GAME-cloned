@@ -14,6 +14,7 @@ public class AttackInfos : ScriptableObject
     [Header("공격 이펙트 및 효과음")]
     public GameObject attackEffect;
     public AudioClip attackSound;
-    
-    
+
+    [Header("모델")]
+    public GameObject attackModel;
 }

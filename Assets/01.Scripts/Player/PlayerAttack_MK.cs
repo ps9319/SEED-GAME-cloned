@@ -6,7 +6,6 @@ public class PlayerAttack_MK : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject weapon;
-    [SerializeField] private ItemToggle_ES ItemToggle;
 
     private Weapon weaponComponent;
     public bool isAttacking = false;
@@ -15,7 +14,6 @@ public class PlayerAttack_MK : MonoBehaviour
     private PlayerMovement movement;
 
     //pencilcase 관련
-    [SerializeField] private GameObject pencil;
     public float speed = 10f;
     public float lifeTime = 1f;
     private bool isThrown = false;
@@ -37,7 +35,7 @@ public class PlayerAttack_MK : MonoBehaviour
         // 구르기 중엔 공격 허용 X
         if (movement != null && movement.isRolling) return;
         // 공격 입력
-        if (Input.GetMouseButtonDown(0) && !isAttacking && ItemToggle.currentState == "fist")
+        if (Input.GetMouseButtonDown(0) && !isAttacking && weaponComponent.currentAttackInfo == weaponComponent.attackInfosList[0])
         {
             isAttacking = true;
             animator.SetTrigger("Attack");
@@ -45,7 +43,7 @@ public class PlayerAttack_MK : MonoBehaviour
         }
 
         // 던지기
-        if (Input.GetMouseButtonDown(0) && !isThrown && ItemToggle.currentState == "pencilcase")
+        if (Input.GetMouseButtonDown(0) && !isThrown && weaponComponent.currentAttackInfo == weaponComponent.attackInfosList[1])
         {
             ThrowWeapon();
             StartCoroutine(ThrowAttack());
@@ -96,7 +94,6 @@ public class PlayerAttack_MK : MonoBehaviour
         isThrown = true;
         throwTimer = 0f;
 
-        pencil.SetActive(true); // 연필 날릴 때만 보이게 함
         weapon.transform.SetParent(null); //부모에서 분리
     }
 
@@ -109,9 +106,6 @@ public class PlayerAttack_MK : MonoBehaviour
 
         // 타이머 리셋
         throwTimer = 0f;
-
-        // 날아간 후 다시 꺼짐
-        pencil.SetActive(false);
 
         // 다시 활성화
         weapon.SetActive(true);
