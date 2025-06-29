@@ -52,9 +52,6 @@ public class EnemyStun : MonoBehaviour
         if (agent != null)
             agent.isStopped = true;  // NavMeshAgent 멈추기
 
-        if (animator != null)
-            animator.SetTrigger("Hit");
-
         Debug.Log("몬스터 스턴 적용 + 애니메이션");
     }
 

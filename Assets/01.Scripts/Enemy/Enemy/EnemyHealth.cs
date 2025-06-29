@@ -9,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     private bool isDead { get; set; } = false;
     private EnemyStun stun;
     private AudioSource audioSource;
+    private EnemyAI enemyAI;
     public event Action onDeath;
 
     private void Awake()
@@ -16,6 +17,7 @@ public class EnemyHealth : MonoBehaviour
         infos = GetComponent<Enemy>().enemyInfos;
         stun = GetComponent<EnemyStun>();
         audioSource = GetComponent<AudioSource>();
+        enemyAI = GetComponent<EnemyAI>();
     }
 
     private void Start()
@@ -48,8 +50,9 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        onDeath();
+        onDeath?.Invoke();
         isDead = true;
+        enemyAI.Die();
     }
 
     public float getMaxHealth()
@@ -59,7 +62,7 @@ public class EnemyHealth : MonoBehaviour
 
     public float getCurrentHealth()
     {
-        return maxHealth;
+        return currentHealth;
     }
     
 }

@@ -50,7 +50,7 @@ public class EnemyAI : MonoBehaviour
 
         if (stun != null && stun.isStunned)
         {
-            if (currentState != EnemyState.Hit)
+            if (currentState != EnemyState.Hit && currentState != EnemyState.Dead)
             {
                 animator.ResetTrigger(currentState.ToString());
                 animator.SetTrigger(EnemyState.Hit.ToString());
@@ -64,7 +64,7 @@ public class EnemyAI : MonoBehaviour
         // Chase일 때는 계속해서 Move를 호출해야함
         if (currentState == EnemyState.Chase)
             movement.Move(player.position);
-        if (currentState == newState) return;
+        if (currentState == newState && currentState != EnemyState.Dead) return;
 
         animator.ResetTrigger(currentState.ToString());
         animator.SetTrigger(newState.ToString());
@@ -85,8 +85,14 @@ public class EnemyAI : MonoBehaviour
 
     private EnemyState DetermineState(float distance)
     {
+        if (currentState == EnemyState.Dead) return EnemyState.Dead;
         if (distance < enemyInfos.attackInfo.attackRange) return EnemyState.Attack;
         if (distance < enemyInfos.detectionRange) return EnemyState.Chase;
         return EnemyState.Idle;
+    }
+
+    public void Die()
+    {
+        currentState = EnemyState.Dead;
     }
 }
