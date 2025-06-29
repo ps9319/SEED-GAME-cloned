@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff882bc3f72e54c7b90ce9d3c82f9456, type: 3}
   m_Name: ComputerAttackInfos
   m_EditorClassIdentifier: 
-  damage: 0
-  attackSpeed: 0
-  attackRange: 0
+  damage: 1
+  attackSpeed: 1
+  attackRange: 2
   attackEffect: {fileID: 0}
   attackSound: {fileID: 0}
