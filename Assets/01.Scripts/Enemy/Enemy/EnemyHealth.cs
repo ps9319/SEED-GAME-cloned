@@ -48,7 +48,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        onDeath();
+        onDeath?.Invoke();
         isDead = true;
     }
 
