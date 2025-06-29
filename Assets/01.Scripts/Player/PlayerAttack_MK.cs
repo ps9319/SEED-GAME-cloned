@@ -15,6 +15,7 @@ public class PlayerAttack_MK : MonoBehaviour
     private PlayerMovement movement;
 
     //pencilcase 관련
+    private GameObject spawnedModel;
     public float speed = 10f;
     public float lifeTime = 1f;
     private bool isThrown = false;
@@ -34,7 +35,7 @@ public class PlayerAttack_MK : MonoBehaviour
     void Update()
     {
         // 구르기 중엔 공격 허용 X
-        if (movement != null && movement.isRolling) return;
+        if (movement != null && movement.isRolling && !isThrown) return;
         // 공격 입력
         if (Input.GetMouseButtonDown(0) && !isAttacking && weaponComponent.currentAttackInfo == weaponComponent.attackInfosList[0])
         {
@@ -95,6 +96,13 @@ public class PlayerAttack_MK : MonoBehaviour
         isThrown = true;
         throwTimer = 0f;
 
+        // attackModel 프리팹을 동적으로 생성
+        GameObject modelPrefab = weaponComponent.currentAttackInfo.attackModel;
+        if (modelPrefab != null)
+        {
+            spawnedModel = Instantiate(modelPrefab, weapon.transform);
+        }
+
         weapon.transform.SetParent(null); //부모에서 분리
     }
 
@@ -107,6 +115,13 @@ public class PlayerAttack_MK : MonoBehaviour
 
         // 타이머 리셋
         throwTimer = 0f;
+
+        // 생성된 모델 제거
+        if (spawnedModel != null)
+        {
+            Destroy(spawnedModel);
+            spawnedModel = null;
+        }
 
         // 다시 활성화
         weapon.SetActive(true);
