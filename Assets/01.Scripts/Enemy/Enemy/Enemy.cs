@@ -45,4 +45,9 @@ public class Enemy : MonoBehaviour
     {
         onEnemyDied?.Invoke(this);
     }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
+    }
 }
