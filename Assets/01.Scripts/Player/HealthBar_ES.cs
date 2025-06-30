@@ -34,6 +34,7 @@ public class HealthBar_ES : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        Debug.Log("플레이어 피격 데미지: " + damage);
         currentHealth -= damage;
         stun.ApplyStun(3f);
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
