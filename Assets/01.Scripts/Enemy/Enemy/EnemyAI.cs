@@ -114,8 +114,6 @@ public class EnemyAI : MonoBehaviour
     private EnemyState DetermineState(float distance)
     {
         if (currentState == EnemyState.Dead) return EnemyState.Dead;
-        if (distance < enemyInfos.attackInfo.attackRange) return EnemyState.Attack;
-        if (distance < enemyInfos.detectionRange) return EnemyState.Chase;
         if (distance < enemyInfos.attackInfo.attackRange)
         {
             if (bossSkill != null && bossSkill.CanUseSkill())
@@ -128,7 +126,7 @@ public class EnemyAI : MonoBehaviour
             }
             return EnemyState.Attack;
         }
-
+        if (distance < enemyInfos.detectionRange) return EnemyState.Chase;
         if (distance < enemyInfos.detectionRange)
             return EnemyState.Chase;
 
