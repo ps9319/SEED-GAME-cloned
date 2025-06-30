@@ -9,6 +9,11 @@ public class ItemToggle_ES: MonoBehaviour
     //무기들
     [SerializeField] private Sprite fistSprite;
     [SerializeField] private Sprite pencilcaseSprite;
+    [SerializeField] private Sprite laptopweaponSprite;
+    [SerializeField] private Sprite mouseSprite;
+    [SerializeField] private Sprite beamprojectorSprite;
+
+    [SerializeField] private Weapon weapon;
 
     //무기
     public string currentState = "fist";
@@ -31,11 +36,28 @@ public class ItemToggle_ES: MonoBehaviour
     {
         if (ItemToggleBar1.sprite == fistSprite)
         {
-            currentState = "fist";
+            AttackInfos chosenAttack = weapon.GetAttackInfo(0);
+            weapon.SetAttackInfo(chosenAttack);
         }
         else if (ItemToggleBar1.sprite == pencilcaseSprite)
         {
-            currentState = "pencilcase";
+            AttackInfos chosenAttack = weapon.GetAttackInfo(1);
+            weapon.SetAttackInfo(chosenAttack);
+        }
+        else if (ItemToggleBar1.sprite == laptopweaponSprite)
+        {
+            AttackInfos chosenAttack = weapon.GetAttackInfo(2);
+            weapon.SetAttackInfo(chosenAttack);
+        }
+        else if (ItemToggleBar1.sprite == mouseSprite)
+        {
+            AttackInfos chosenAttack = weapon.GetAttackInfo(3);
+            weapon.SetAttackInfo(chosenAttack);
+        }
+        else if (ItemToggleBar1.sprite == beamprojectorSprite)
+        {
+            AttackInfos chosenAttack = weapon.GetAttackInfo(4);
+            weapon.SetAttackInfo(chosenAttack);
         }
         else
         {

@@ -28,6 +28,7 @@ public class EnemyHealth : MonoBehaviour
         Weapon weapon = other.GetComponent<Weapon>();
         if (weapon == null) return;
         float attackDamage = weapon.Damage;
+        Debug.Log("attackDamage: " + attackDamage);
         TakeDamage(attackDamage);
         //Todo EnemyHealth, EnemyHealthUI와 통합 필요
         EnemyHealthUI enemyHealthUI = GetComponentInChildren<EnemyHealthUI>();
