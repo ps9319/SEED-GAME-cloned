@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyAI), typeof(EnemyMovement), typeof(EnemyHealth))]
-[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(AudioSource), typeof(EnemyStun))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private EnemyInfos infos;
@@ -44,6 +44,10 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         onEnemyDied?.Invoke(this);
-        Destroy(this.gameObject);
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
