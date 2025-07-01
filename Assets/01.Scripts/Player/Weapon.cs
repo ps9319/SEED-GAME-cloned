@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
 
     private void Start()
     {
-        currentAttackInfo = attackInfosList[0];
+
     }
 
     // 외부에서 선택한 AttackInfos를 설정
