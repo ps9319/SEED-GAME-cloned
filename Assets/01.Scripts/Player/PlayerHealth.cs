@@ -39,16 +39,6 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
     }
     
-    public float getMaxHealth()
-    {
-        return maxHealth;
-    }
-
-    public float getCurrentHealth()
-    {
-        return currentHealth;
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerHealthUI.Init(maxHealth);
