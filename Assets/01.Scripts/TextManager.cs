@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TextManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public TextMeshProUGUI messageText;
+    public GameObject messageObject;      // 🔸 Message 전체 오브젝트 (Text 포함)
+    public TextMeshProUGUI messageText;   // 🔸 텍스트 자체
     public float displayTime = 2f;
     public float fadeDuration = 1f;
 
@@ -17,6 +17,7 @@ public class TextManager : MonoBehaviour
 
     IEnumerator FadeClueMessage()
     {
+        messageObject.SetActive(true);        // 🔸 메시지 전체 켜기
         messageText.text = "단서를 획득했다!";
         messageText.alpha = 1f;
 
@@ -31,5 +32,6 @@ public class TextManager : MonoBehaviour
         }
 
         messageText.alpha = 0f;
+        messageObject.SetActive(false);       // 🔸 메시지 전체 끄기
     }
 }
