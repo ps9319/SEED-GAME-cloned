@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class HealthBar_ES : MonoBehaviour
 {
-    [SerializeField] RectTransform HealthBarfillRect;
+    [SerializeField] RectTransform healthBarfillRect;
     [SerializeField] float maxHealth = 100f;
+    
     private float currentHealth;
-
     private float originalWidth;
     private PlayerStun stun;
 
@@ -14,7 +14,7 @@ public class HealthBar_ES : MonoBehaviour
     {
         stun = GetComponent<PlayerStun>();
         currentHealth = maxHealth;
-        originalWidth = HealthBarfillRect.sizeDelta.x;
+        originalWidth = healthBarfillRect.sizeDelta.x;
         UpdateHealthBar();
     }
 
@@ -51,6 +51,6 @@ public class HealthBar_ES : MonoBehaviour
     void UpdateHealthBar()
     {
         float healthPercent = currentHealth / maxHealth;
-        HealthBarfillRect.sizeDelta = new Vector2(originalWidth * healthPercent, HealthBarfillRect.sizeDelta.y);
+        healthBarfillRect.sizeDelta = new Vector2(originalWidth * healthPercent, healthBarfillRect.sizeDelta.y);
     }
 }
