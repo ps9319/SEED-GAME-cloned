@@ -11,7 +11,7 @@ public class PasswordKeypad : MonoBehaviour
     public TextMeshProUGUI statusText;
     public float statusDisplayDuration = 2f;
     private string currentInput = "";
-    private string correctPassword = "1234";
+    [SerializeField] private string correctPassword = "";
 
     public void AppendNumber(string number)
     {
