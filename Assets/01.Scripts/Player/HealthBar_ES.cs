@@ -1,18 +1,22 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HealthBar_ES : MonoBehaviour
 {
     [SerializeField] RectTransform healthBarfillRect;
-    [SerializeField] float maxHealth = 100f;
     
+    private float maxHealth;
     private float currentHealth;
     private float originalWidth;
-    private PlayerStun stun;
+    private PlayerHealth playerHealth;
+
+    private void Awake()
+    {
+        playerHealth = GetComponent<PlayerHealth>();
+    }
 
     void Start()
     {
-        stun = GetComponent<PlayerStun>();
+        maxHealth = playerHealth.getMaxHealth();
         currentHealth = maxHealth;
         originalWidth = healthBarfillRect.sizeDelta.x;
         UpdateHealthBar();
@@ -20,35 +24,25 @@ public class HealthBar_ES : MonoBehaviour
 
     void Update()
     {
-        
+        currentHealth = playerHealth.getCurrentHealth();
     }
 
-    public void OnHitboxTriggerEnter(Collider other)
-    {
-        Weapon weapon = other.GetComponent<Weapon>();
-        if (weapon == null) return;
-
-        float damage = weapon.Damage;
-        TakeDamage(damage);
-    }
+    // public void OnHitboxTriggerEnter(Collider other)
+    // {
+    //     Weapon weapon = other.GetComponent<Weapon>();
+    //     if (weapon == null) return;
+    //
+    //     float damage = weapon.Damage;
+    //     TakeDamage(damage);
+    // }
 
     public void TakeDamage(float damage)
     {
-        Debug.Log("플레이어 피격 데미지: " + damage);
-        currentHealth -= damage;
-        stun.ApplyStun(3f);
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+        currentHealth = playerHealth.getCurrentHealth();
         UpdateHealthBar();
     }
 
-    void Heal(float amount)
-    {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
-        UpdateHealthBar();
-    }
-
-    void UpdateHealthBar()
+    private void UpdateHealthBar()
     {
         float healthPercent = currentHealth / maxHealth;
         healthBarfillRect.sizeDelta = new Vector2(originalWidth * healthPercent, healthBarfillRect.sizeDelta.y);

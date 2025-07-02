@@ -14,7 +14,7 @@ public class HitboxRelayPlayer_HG : MonoBehaviour
         Debug.Log("HitboxRelay Trigger됨: " + other.name);
         if (health != null)
         {
-            health.OnHitboxTriggerEnter(other);
+            // health.OnHitboxTriggerEnter(other);
         }
     }
 }
