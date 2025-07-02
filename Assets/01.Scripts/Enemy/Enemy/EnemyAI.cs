@@ -13,7 +13,7 @@ public enum EnemyState
 
 public class EnemyAI : MonoBehaviour
 {
-    public EnemyState currentState = EnemyState.Idle;
+    private EnemyState currentState = EnemyState.Idle;
 
     private EnemyInfos enemyInfos;
     private Transform player;
