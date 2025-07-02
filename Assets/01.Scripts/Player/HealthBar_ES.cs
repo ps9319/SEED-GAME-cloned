@@ -7,38 +7,22 @@ public class HealthBar_ES : MonoBehaviour
     private float maxHealth;
     private float currentHealth;
     private float originalWidth;
-    private PlayerHealth playerHealth;
 
     private void Awake()
     {
-        playerHealth = GetComponent<PlayerHealth>();
+        originalWidth = healthBarfillRect.sizeDelta.x;
     }
 
-    void Start()
+    public void Init(float maxHealth)
     {
-        maxHealth = playerHealth.getMaxHealth();
+        this.maxHealth = maxHealth;
         currentHealth = maxHealth;
-        originalWidth = healthBarfillRect.sizeDelta.x;
         UpdateHealthBar();
     }
 
-    void Update()
+    public void SetHealth(float health)
     {
-        currentHealth = playerHealth.getCurrentHealth();
-    }
-
-    // public void OnHitboxTriggerEnter(Collider other)
-    // {
-    //     Weapon weapon = other.GetComponent<Weapon>();
-    //     if (weapon == null) return;
-    //
-    //     float damage = weapon.Damage;
-    //     TakeDamage(damage);
-    // }
-
-    public void TakeDamage(float damage)
-    {
-        currentHealth = playerHealth.getCurrentHealth();
+        currentHealth = health;
         UpdateHealthBar();
     }
 

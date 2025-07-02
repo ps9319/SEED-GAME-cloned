@@ -13,7 +13,7 @@ public class EnemyAttackHitbox : MonoBehaviour
             HealthBar_ES playerHealth = other.GetComponentInChildren<HealthBar_ES>();
             if (playerHealth != null)
             {
-                playerHealth.TakeDamage(damage); 
+                // playerHealth.TakeDamage(damage); 
             }
         }
 

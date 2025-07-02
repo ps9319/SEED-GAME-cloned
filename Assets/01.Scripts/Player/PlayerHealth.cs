@@ -5,7 +5,8 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private float maxHealth = 100f;
     [SerializeField] private float currentHealth;
-
+    [SerializeField] private HealthBar_ES playerHealthUI;
+    
     private PlayerStun stun;
     
     private void Awake()
@@ -29,8 +30,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
         stun.ApplyStun(3f);
-        HealthBar_ES playerHealthUI = GetComponentInChildren<HealthBar_ES>();
-        playerHealthUI.TakeDamage(damage);
+        playerHealthUI.SetHealth(currentHealth);
     }
 
     private void Heal(float amount)
@@ -51,7 +51,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerHealthUI.Init(maxHealth);
     }
 
     // Update is called once per frame
