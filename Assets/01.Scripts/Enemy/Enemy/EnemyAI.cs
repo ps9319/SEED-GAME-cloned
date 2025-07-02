@@ -11,8 +11,6 @@ public enum EnemyState
     Dead
 }
 
-// EnemyMovement가 없으면 자동으로 붙여줌
-[RequireComponent(typeof(EnemyMovement))]
 public class EnemyAI : MonoBehaviour
 {
     public EnemyState currentState = EnemyState.Idle;
