@@ -1,11 +1,15 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PasswordKeypad : MonoBehaviour
 {
-    public TextMeshProUGUI inputDisplay;           // 비밀번호 표시 텍스트
-    public GameObject keypadPanel;      // 키패드 전체 패널
+    public TextMeshProUGUI inputDisplay; // 비밀번호 표시 텍스트
+    public GameObject keypadPanel; // 키패드 전체 패널
+    public GameObject statusTextObject;
+    public TextMeshProUGUI statusText;
+    public float statusDisplayDuration = 2f;
     private string currentInput = "";
     private string correctPassword = "1234";
 
@@ -26,18 +30,24 @@ public class PasswordKeypad : MonoBehaviour
 
     public void CheckPassword()
     {
+        statusTextObject.SetActive(true);
+
         if (currentInput == correctPassword)
         {
-            Debug.Log("비밀번호 일치!");
+            statusText.text = "<color=green>비밀번호 일치!</color>";
+            StartCoroutine(HideStatusTextAfterDelay());
+
             keypadPanel.SetActive(false);
             Time.timeScale = 1f;
-            // 여기서 문을 연다거나 다음 액션 실행!
+            // 여기서 문 열기 등 액션
         }
         else
         {
-            Debug.Log("비밀번호 틀림!");
-            inputDisplay.text = "틀렸습니다!";
+            statusText.text = "<color=red>틀렸습니다!</color>";
+            StartCoroutine(HideStatusTextAfterDelay());
+
             currentInput = "";
+            inputDisplay.text = "";
         }
     }
 
@@ -45,5 +55,11 @@ public class PasswordKeypad : MonoBehaviour
     {
         keypadPanel.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    private IEnumerator HideStatusTextAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(statusDisplayDuration);
+        statusTextObject.SetActive(false);
     }
 }
