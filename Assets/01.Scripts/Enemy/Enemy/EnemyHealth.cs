@@ -29,6 +29,8 @@ public class EnemyHealth : MonoBehaviour
     {
         Weapon weapon = other.GetComponent<Weapon>();
         if (weapon == null) return;
+        if (weapon.tag != "PlayerWeapon") return;
+
         float attackDamage = weapon.Damage;
         Debug.Log("attackDamage: " + attackDamage);
         TakeDamage(attackDamage);
