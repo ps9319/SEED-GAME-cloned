@@ -114,6 +114,7 @@ public class EnemyAI : MonoBehaviour
         if (currentState == EnemyState.Dead) return EnemyState.Dead;
         if (distance < enemyInfos.attackInfo.attackRange)
         {
+            // 보스 공격
             if (bossSkill != null && bossSkill.CanUseSkill())
             {
                 // 예: 랜덤으로 Skill1 또는 Skill2 중 하나 선택
@@ -122,6 +123,7 @@ public class EnemyAI : MonoBehaviour
                 else
                     return EnemyState.SkillAttack2;
             }
+            // 일반 공격
             return EnemyState.Attack;
         }
         if (distance < enemyInfos.detectionRange) return EnemyState.Chase;
