@@ -17,3 +17,4 @@ MonoBehaviour:
   attackRange: 2
   attackEffect: {fileID: 0}
   attackSound: {fileID: 0}
+  attackModel: {fileID: 0}

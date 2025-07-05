@@ -13,8 +13,8 @@ public enum EnemyState
 
 public class EnemyAI : MonoBehaviour
 {
+    private ParticleSystem attackEffect;
     private EnemyState currentState = EnemyState.Idle;
-
     private EnemyInfos enemyInfos;
     private Transform player;
     private EnemyMovement movement;
@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour
 
     void Awake()
     {
+        attackEffect = GetComponentInChildren<ParticleSystem>();
         movement = GetComponent<EnemyMovement>();
         animator = GetComponent<Animator>();
         enemyInfos = GetComponent<Enemy>().enemyInfos;
@@ -60,10 +61,7 @@ public class EnemyAI : MonoBehaviour
             currentState = newState;
             return;
         }
-
         
-
-
         if (player == null) return;
 
         if (stun != null && stun.isStunned)
@@ -91,10 +89,13 @@ public class EnemyAI : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Idle:
-            case EnemyState.Attack:
             case EnemyState.Hit:
             case EnemyState.Dead:
                 movement.Stop();
+                break;
+            case EnemyState.Attack:
+                movement.Stop();
+                attackEffect.Play();
                 break;
             case EnemyState.Chase:
                 break;
