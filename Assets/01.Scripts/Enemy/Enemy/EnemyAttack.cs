@@ -3,14 +3,17 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
     [SerializeField] private GameObject weapon;
     
+    private ParticleSystem attackEffect;
+    private Animator animator;
     private Weapon weaponComponent;
 
     private void Awake()
     {
         weaponComponent = weapon.GetComponent<Weapon>();
+        animator = GetComponent<Animator>();
+        attackEffect = GetComponentInChildren<ParticleSystem>();
     }
 
     // animator로 공격중인지 판단, 그 시간동안 hitbox를 키자
@@ -33,5 +36,10 @@ public class EnemyAttack : MonoBehaviour
     private void DisableAttackHitbox()
     {
         weaponComponent.Hitbox.enabled = false;
+    }
+
+    public void AttackEffect()
+    {
+        attackEffect.Play();
     }
 }
