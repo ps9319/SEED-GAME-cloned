@@ -15,6 +15,5 @@ MonoBehaviour:
   damage: 1
   attackSpeed: 1
   attackRange: 2
-  attackEffect: {fileID: 0}
-  attackSound: {fileID: 0}
+  attackSound: {fileID: 8300000, guid: 76078b388cf8f4e8b928625017b3f25e, type: 3}
   attackModel: {fileID: 0}

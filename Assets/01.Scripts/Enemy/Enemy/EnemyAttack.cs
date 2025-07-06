@@ -8,12 +8,16 @@ public class EnemyAttack : MonoBehaviour
     private ParticleSystem attackEffect;
     private Animator animator;
     private Weapon weaponComponent;
-
+    private AudioSource audioSource;
+    private AudioClip attackSound;
+    
     private void Awake()
     {
         weaponComponent = weapon.GetComponent<Weapon>();
         animator = GetComponent<Animator>();
         attackEffect = GetComponentInChildren<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
+        attackSound = GetComponent<Enemy>().enemyInfos.attackInfo.attackSound;
     }
 
     // animator로 공격중인지 판단, 그 시간동안 hitbox를 키자
@@ -41,5 +45,11 @@ public class EnemyAttack : MonoBehaviour
     public void AttackEffect()
     {
         attackEffect.Play();
+        
+    }
+
+    public void AttackSound()
+    {
+        audioSource.PlayOneShot(attackSound);
     }
 }
