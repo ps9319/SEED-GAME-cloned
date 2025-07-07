@@ -55,6 +55,7 @@ public class EnemyHealth : MonoBehaviour
     {
         onDeath?.Invoke();
         isDead = true;
+        // Todo enemyAI가 onDeath 구독하게 바꾸기
         enemyAI.Die();
     }
 
