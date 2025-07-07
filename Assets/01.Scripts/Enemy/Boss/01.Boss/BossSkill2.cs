@@ -39,7 +39,7 @@ public class BossSkill2 : MonoBehaviour
         if (Physics.Raycast(startPos, direction, out RaycastHit hit, laserLength, hitLayerMask))
         {
             // 1. 데미지 적용
-            var player = hit.collider.GetComponent<HealthBar_ES>();
+            var player = hit.collider.GetComponent<PlayerHealth>();
             if (player != null)
                 player.TakeDamage(damage);
 

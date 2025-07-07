@@ -11,12 +11,9 @@ public enum EnemyState
     Dead
 }
 
-// EnemyMovement가 없으면 자동으로 붙여줌
-[RequireComponent(typeof(EnemyMovement))]
 public class EnemyAI : MonoBehaviour
 {
-    public EnemyState currentState = EnemyState.Idle;
-
+    private EnemyState currentState = EnemyState.Idle;
     private EnemyInfos enemyInfos;
     private Transform player;
     private EnemyMovement movement;
@@ -62,10 +59,7 @@ public class EnemyAI : MonoBehaviour
             currentState = newState;
             return;
         }
-
         
-
-
         if (player == null) return;
 
         if (stun != null && stun.isStunned)
@@ -93,9 +87,9 @@ public class EnemyAI : MonoBehaviour
         switch (currentState)
         {
             case EnemyState.Idle:
-            case EnemyState.Attack:
             case EnemyState.Hit:
             case EnemyState.Dead:
+            case EnemyState.Attack:
                 movement.Stop();
                 break;
             case EnemyState.Chase:
@@ -116,6 +110,7 @@ public class EnemyAI : MonoBehaviour
         if (currentState == EnemyState.Dead) return EnemyState.Dead;
         if (distance < enemyInfos.attackInfo.attackRange)
         {
+            // 보스 공격
             if (bossSkill != null && bossSkill.CanUseSkill())
             {
                 // 예: 랜덤으로 Skill1 또는 Skill2 중 하나 선택
@@ -124,6 +119,7 @@ public class EnemyAI : MonoBehaviour
                 else
                     return EnemyState.SkillAttack2;
             }
+            // 일반 공격
             return EnemyState.Attack;
         }
         if (distance < enemyInfos.detectionRange) return EnemyState.Chase;

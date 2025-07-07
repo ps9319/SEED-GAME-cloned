@@ -29,6 +29,8 @@ public class EnemyHealth : MonoBehaviour
     {
         Weapon weapon = other.GetComponent<Weapon>();
         if (weapon == null) return;
+        if (weapon.tag != "PlayerWeapon") return;
+
         float attackDamage = weapon.Damage;
         Debug.Log("attackDamage: " + attackDamage);
         TakeDamage(attackDamage);
@@ -53,6 +55,7 @@ public class EnemyHealth : MonoBehaviour
     {
         onDeath?.Invoke();
         isDead = true;
+        // Todo enemyAI가 onDeath 구독하게 바꾸기
         enemyAI.Die();
     }
 

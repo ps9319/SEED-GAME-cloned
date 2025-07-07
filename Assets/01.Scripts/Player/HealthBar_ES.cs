@@ -3,54 +3,27 @@ using UnityEngine.UI;
 
 public class HealthBar_ES : MonoBehaviour
 {
-    [SerializeField] RectTransform HealthBarfillRect;
-    [SerializeField] float maxHealth = 100f;
+    [SerializeField] Image healthBarFillImage;
+    
+    private float maxHealth;
     private float currentHealth;
 
-    private float originalWidth;
-    private PlayerStun stun;
-
-    void Start()
+    public void Init(float maxHealth)
     {
-        stun = GetComponent<PlayerStun>();
+        this.maxHealth = maxHealth;
         currentHealth = maxHealth;
-        originalWidth = HealthBarfillRect.sizeDelta.x;
         UpdateHealthBar();
     }
 
-    void Update()
+    public void SetHealth(float health)
     {
-        
-    }
-
-    public void OnHitboxTriggerEnter(Collider other)
-    {
-        Weapon weapon = other.GetComponent<Weapon>();
-        if (weapon == null) return;
-
-        float damage = weapon.Damage;
-        TakeDamage(damage);
-    }
-
-    public void TakeDamage(float damage)
-    {
-        Debug.Log("플레이어 피격 데미지: " + damage);
-        currentHealth -= damage;
-        stun.ApplyStun(3f);
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+        currentHealth = health;
         UpdateHealthBar();
     }
 
-    void Heal(float amount)
-    {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
-        UpdateHealthBar();
-    }
-
-    void UpdateHealthBar()
+    private void UpdateHealthBar()
     {
         float healthPercent = currentHealth / maxHealth;
-        HealthBarfillRect.sizeDelta = new Vector2(originalWidth * healthPercent, HealthBarfillRect.sizeDelta.y);
+        healthBarFillImage.fillAmount = healthPercent;
     }
 }
