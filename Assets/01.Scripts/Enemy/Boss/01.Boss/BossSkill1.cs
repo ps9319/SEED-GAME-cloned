@@ -71,7 +71,7 @@ public class BossSkill1 : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRadius); // <--- 이 부분 확인
         foreach (var hitCollider in hitColliders)
         {
-            var player = hitCollider.GetComponent<HealthBar_ES>();
+            var player = hitCollider.GetComponent<PlayerHealth>();
             if (player != null)
             {
                 player.TakeDamage(damageAmount);

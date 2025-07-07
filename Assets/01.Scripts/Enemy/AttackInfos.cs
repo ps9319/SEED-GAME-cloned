@@ -11,8 +11,7 @@ public class AttackInfos : ScriptableObject
     public float attackSpeed;
     public float attackRange;
     
-    [Header("공격 이펙트 및 효과음")]
-    public GameObject attackEffect;
+    [Header("공격 효과음")]
     public AudioClip attackSound;
 
     [Header("모델")]
