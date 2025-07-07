@@ -1,17 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar_ES : MonoBehaviour
 {
-    [SerializeField] RectTransform healthBarfillRect;
+    [SerializeField] Image healthBarFillImage;
     
     private float maxHealth;
     private float currentHealth;
-    private float originalWidth;
-
-    private void Awake()
-    {
-        originalWidth = healthBarfillRect.sizeDelta.x;
-    }
 
     public void Init(float maxHealth)
     {
@@ -29,6 +24,6 @@ public class HealthBar_ES : MonoBehaviour
     private void UpdateHealthBar()
     {
         float healthPercent = currentHealth / maxHealth;
-        healthBarfillRect.sizeDelta = new Vector2(originalWidth * healthPercent, healthBarfillRect.sizeDelta.y);
+        healthBarFillImage.fillAmount = healthPercent;
     }
 }
