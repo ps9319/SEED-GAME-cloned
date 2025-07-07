@@ -139,11 +139,11 @@ public class PlayerAttack_MK : MonoBehaviour
 
     IEnumerator SmashAttack()
     {
-        Vector3 originalPos = weapon.transform.position + new Vector3(0, 0, 1f);
+        Vector3 originalPos = weapon.transform.position + weapon.transform.forward * 1f;
         Quaternion originalRot = weapon.transform.rotation;
 
-        // Step 1: 위로 들어올림
-        weapon.transform.position += new Vector3(0, 1.3f, 1);
+        // Step 1: 위로 들어올림 (앞으로 + 위로)
+        weapon.transform.position += weapon.transform.up * 1.3f + weapon.transform.forward * 1f;
         yield return new WaitForSeconds(0.2f);
 
         // Step 2: 아래로 빠르게 내리침
