@@ -11,6 +11,8 @@ public class EnemyHealth : MonoBehaviour
     private AudioSource audioSource;
     private EnemyAI enemyAI;
     public event Action onDeath;
+    private bool puzzleTriggered = false;
+    private BossPuzzleManager puzzleManager;
 
     private void Awake()
     {
@@ -18,6 +20,7 @@ public class EnemyHealth : MonoBehaviour
         stun = GetComponent<EnemyStun>();
         audioSource = GetComponent<AudioSource>();
         enemyAI = GetComponent<EnemyAI>();
+        puzzleManager = GetComponent<BossPuzzleManager>();
     }
 
     private void Start()
@@ -45,6 +48,14 @@ public class EnemyHealth : MonoBehaviour
         stun.ApplyStun(1f);
         // 피격 효과음 재생
         audioSource.PlayOneShot(infos.hitSound);
+
+        // 퍼즐 조건
+        if (!puzzleTriggered && currentHealth <= maxHealth * 0.2f)
+        {
+            puzzleTriggered = true;
+            puzzleManager.StartPuzzle();
+        }
+        
         if (currentHealth <= 0 && !isDead)
         {
             Die();
