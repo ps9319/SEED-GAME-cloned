@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(InteractionTrigger))]
 public class Clue : MonoBehaviour
 {
     [Header("회전 속도")]
