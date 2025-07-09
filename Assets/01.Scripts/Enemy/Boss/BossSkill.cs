@@ -6,7 +6,7 @@ public class BossSkill : MonoBehaviour
     public GameObject skill2Prefab;
 
     public Transform firePoint;
-    public float skillCooldown = 5f;
+    public float skillCooldown = 10f;
     private float lastSkillTime = -Mathf.Infinity;
 
     private bool isUsingSkill = false;
@@ -16,14 +16,19 @@ public class BossSkill : MonoBehaviour
         return isUsingSkill;
     }
 
-    public bool CanUseSkill()
+    public bool IsCooldownOver()
     {
         return Time.time >= lastSkillTime + skillCooldown;
     }
 
+    public bool CheckSkillChance(float chance)
+    {
+        return Random.value < chance;
+    }
+
+
     public void TryCastSkill1()
     {
-        if (!CanUseSkill()) return;
 
         isUsingSkill = true;
         lastSkillTime = Time.time;
@@ -42,7 +47,6 @@ public class BossSkill : MonoBehaviour
 
     public void TryCastSkill2()
     {
-        if (!CanUseSkill()) return;
 
         isUsingSkill = true;
         lastSkillTime = Time.time;
