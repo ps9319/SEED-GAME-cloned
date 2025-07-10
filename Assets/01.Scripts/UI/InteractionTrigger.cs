@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Net.Mime;
 using UnityEngine;
 
 public class InteractionTrigger : MonoBehaviour
@@ -8,6 +10,15 @@ public class InteractionTrigger : MonoBehaviour
     
     private bool isPlayerInRange = false;
 
+    void Update()
+    {
+        if (isPlayerInRange && Input.GetKeyDown(interactionKey))
+        {
+            interactionUI.SetActive(false);
+            TextManager.ShowClueMessage();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -17,6 +28,14 @@ public class InteractionTrigger : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (isPlayerInRange && Input.GetKeyDown(interactionKey))
+        {
+            StartCoroutine(DestroyAfterTime());
+        }
+    }
+    
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -26,13 +45,11 @@ public class InteractionTrigger : MonoBehaviour
         }
     }
 
-    void Update()
+    private IEnumerator DestroyAfterTime()
     {
-        if (isPlayerInRange && Input.GetKeyDown(interactionKey))
-        {
-            interactionUI.SetActive(false);
-            TextManager.ShowClueMessage();
-        }
+        float totalDisplayTime = TextManager.displayTime + TextManager.fadeDuration;
+        yield return new WaitForSeconds(totalDisplayTime);
+        Destroy(gameObject);
     }
 }
 
