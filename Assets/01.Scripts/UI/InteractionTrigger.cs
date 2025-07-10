@@ -30,7 +30,7 @@ public class InteractionTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (isPlayerInRange && Input.GetKeyDown(interactionKey))
+        if (Input.GetKeyDown(interactionKey))
         {
             StartCoroutine(DestroyAfterTime());
         }
