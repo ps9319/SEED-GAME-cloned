@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(InteractionTrigger))]
 public class Clue : MonoBehaviour
 {
+    [SerializeField] private GameObject clueImage;  
+    
     [Header("회전 속도")]
     [SerializeField] private float rotateSpeed = 20f;
     
