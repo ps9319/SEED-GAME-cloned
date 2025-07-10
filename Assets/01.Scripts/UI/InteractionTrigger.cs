@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Net.Mime;
 using UnityEngine;
 
 public class InteractionTrigger : MonoBehaviour
@@ -9,11 +8,13 @@ public class InteractionTrigger : MonoBehaviour
     public KeyCode interactionKey = KeyCode.F;
     
     private bool isPlayerInRange = false;
-
+    private bool isClicked = false;
+    
     void Update()
     {
         if (isPlayerInRange && Input.GetKeyDown(interactionKey))
         {
+            isClicked = true;
             interactionUI.SetActive(false);
             TextManager.ShowClueMessage();
         }
@@ -30,9 +31,15 @@ public class InteractionTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (other.tag != "Player") return;
         if (Input.GetKeyDown(interactionKey))
         {
-            StartCoroutine(DestroyAfterTime());
+            // 주울 수 있는 단서만 해당
+            // 다른 상호작용은 없어지면 안됨
+            if (tag == "Clue" && !isClicked)
+            {
+                StartCoroutine(DestroyAfterTime());
+            }
         }
     }
     
@@ -47,9 +54,18 @@ public class InteractionTrigger : MonoBehaviour
 
     private IEnumerator DestroyAfterTime()
     {
+        DisableInteraction();
         float totalDisplayTime = TextManager.displayTime + TextManager.fadeDuration;
         yield return new WaitForSeconds(totalDisplayTime);
         Destroy(gameObject);
+    }
+
+    private void DisableInteraction()
+    {
+        GetComponent<Renderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+        GetComponentInChildren<Light>().enabled = false;
+        GetComponentInChildren<ParticleSystem>().Stop();
     }
 }
 
