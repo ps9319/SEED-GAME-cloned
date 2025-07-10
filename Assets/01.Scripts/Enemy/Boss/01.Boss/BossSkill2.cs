@@ -28,7 +28,7 @@ public class BossSkill2 : MonoBehaviour
     private IEnumerator FireLaser()
     {
         Vector3 startPos = firePoint.position;
-        Vector3 direction = Quaternion.Euler(30f, -15f, 0f) * (target.position - startPos).normalized;
+        Vector3 direction = Quaternion.Euler(0f, -15f, 0f) * (target.position - startPos).normalized;
 
 
         // 레이저 이펙트 생성

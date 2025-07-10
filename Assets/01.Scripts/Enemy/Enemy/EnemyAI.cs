@@ -20,6 +20,9 @@ public class EnemyAI : MonoBehaviour
     private Animator animator;
     private EnemyStun stun;
     private BossSkill bossSkill;
+    private float skillRetryDelay = 2f;  // 실패 후 재시도 지연 시간
+    private float nextSkillTryTime = 0f;
+
 
 
     void Awake()
@@ -48,17 +51,31 @@ public class EnemyAI : MonoBehaviour
     {
         EnemyState newState = DetermineState(distance);
 
-        // SkillAttack 상태일 때 → 진행 중이면 상태 고정
         if (currentState == EnemyState.SkillAttack1 || currentState == EnemyState.SkillAttack2)
         {
             if (bossSkill != null && bossSkill.IsSkillInProgress())
                 return;
 
-            animator.ResetTrigger(currentState.ToString());
-            animator.SetTrigger(newState.ToString());
-            currentState = newState;
+            // 스킬 끝난 뒤 새 상태 재결정
+            EnemyState postSkillState = DetermineState(distance);
+
+            if (postSkillState == EnemyState.SkillAttack1 || postSkillState == EnemyState.SkillAttack2)
+            {
+                // 다시 스킬 조건이 맞으면 계속 스킬 → 여기서 확률 및 쿨타임 다시 체크됨
+                animator.ResetTrigger(currentState.ToString());
+                animator.SetTrigger(postSkillState.ToString());
+                currentState = postSkillState;
+            }
+            else
+            {
+                // 스킬 조건 불충분 → 일반 Attack or Chase
+                animator.ResetTrigger(currentState.ToString());
+                animator.SetTrigger(postSkillState.ToString());
+                currentState = postSkillState;
+            }
             return;
         }
+
         
         if (player == null) return;
 
@@ -108,24 +125,32 @@ public class EnemyAI : MonoBehaviour
     private EnemyState DetermineState(float distance)
     {
         if (currentState == EnemyState.Dead) return EnemyState.Dead;
-        if (distance < enemyInfos.attackInfo.attackRange)
+
+        float attackRange = enemyInfos.attackInfo.attackRange;
+        float detectionRange = enemyInfos.detectionRange;
+
+        if (distance < attackRange)
         {
-            // 보스 공격
-            if (bossSkill != null && bossSkill.CanUseSkill())
+            if (bossSkill != null && bossSkill.IsCooldownOver() && Time.time >= nextSkillTryTime)
             {
-                // 예: 랜덤으로 Skill1 또는 Skill2 중 하나 선택
-                if (Random.value < 0.5f)
+                if (bossSkill.CheckSkillChance(0.3f))
                     return EnemyState.SkillAttack1;
                 else
-                    return EnemyState.SkillAttack2;
+                    nextSkillTryTime = Time.time + skillRetryDelay; // 실패 시 재시도 지연
             }
-            // 일반 공격
             return EnemyState.Attack;
         }
-        if (distance < enemyInfos.detectionRange) return EnemyState.Chase;
-        if (distance < enemyInfos.detectionRange)
+        else if (distance < detectionRange)
+        {
+            if (bossSkill != null && bossSkill.IsCooldownOver() && Time.time >= nextSkillTryTime)
+            {
+                if (bossSkill.CheckSkillChance(0.5f))
+                    return EnemyState.SkillAttack2;
+                else
+                    nextSkillTryTime = Time.time + skillRetryDelay; // 실패 시 재시도 지연
+            }
             return EnemyState.Chase;
-
+        }
         return EnemyState.Idle;
     }
 

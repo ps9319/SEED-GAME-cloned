@@ -6,7 +6,7 @@ public class BossSkill : MonoBehaviour
     public GameObject skill2Prefab;
 
     public Transform firePoint;
-    public float skillCooldown = 5f;
+    public float skillCooldown = 10f;
     private float lastSkillTime = -Mathf.Infinity;
 
     private bool isUsingSkill = false;
@@ -16,14 +16,19 @@ public class BossSkill : MonoBehaviour
         return isUsingSkill;
     }
 
-    public bool CanUseSkill()
+    public bool IsCooldownOver()
     {
         return Time.time >= lastSkillTime + skillCooldown;
     }
 
+    public bool CheckSkillChance(float chance)
+    {
+        return Random.value < chance;
+    }
+
+
     public void TryCastSkill1()
     {
-        if (!CanUseSkill()) return;
 
         isUsingSkill = true;
         lastSkillTime = Time.time;
@@ -31,7 +36,7 @@ public class BossSkill : MonoBehaviour
         // 🔥 Skill1 오브젝트 생성 및 시전
         Vector3 spawnPos = transform.position + transform.forward * 5f;
         spawnPos.y = 0f;
-        
+
         GameObject obj = Instantiate(skill1Prefab, spawnPos, skill1Prefab.transform.rotation);
         BossSkill1 skill = obj.GetComponent<BossSkill1>();
         if (skill != null)
@@ -42,7 +47,6 @@ public class BossSkill : MonoBehaviour
 
     public void TryCastSkill2()
     {
-        if (!CanUseSkill()) return;
 
         isUsingSkill = true;
         lastSkillTime = Time.time;
@@ -62,5 +66,17 @@ public class BossSkill : MonoBehaviour
     private void EndSkill()
     {
         isUsingSkill = false;
+    }
+    
+    public void PuzzleSuccess()
+    {
+        Debug.Log("퍼즐 성공 → 즉사 스킬 취소, 전투 계속! 💪");
+        // 예: 즉사 애니메이션 취소, 전투 로직 복귀 등
+    }
+
+    public void PuzzleFailed()
+    {
+        Debug.Log("퍼즐 실패 → 플레이어 즉사! ☠️");
+        //FindObjectOfType<PlayerMovement>().Die();
     }
 }
