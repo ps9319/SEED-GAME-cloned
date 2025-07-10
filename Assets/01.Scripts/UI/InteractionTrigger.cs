@@ -4,7 +4,8 @@ public class InteractionTrigger : MonoBehaviour
 {
     public GameObject interactionUI; // "F키를 눌러 상호작용" 텍스트
     public TextManager TextManager;
-
+    public KeyCode interactionKey = KeyCode.F;
+    
     private bool isPlayerInRange = false;
 
     private void OnTriggerEnter(Collider other)
@@ -27,7 +28,7 @@ public class InteractionTrigger : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.F))
+        if (isPlayerInRange && Input.GetKeyDown(interactionKey))
         {
             interactionUI.SetActive(false);
             TextManager.ShowClueMessage();
