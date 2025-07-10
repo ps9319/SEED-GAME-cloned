@@ -121,7 +121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1720aff2f610b4cdb9443dff5352f7e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.7307434
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1720aff2f610b4cdb9443dff5352f7e3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -129,7 +129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1720aff2f610b4cdb9443dff5352f7e3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.5599773
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1720aff2f610b4cdb9443dff5352f7e3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -481,7 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  playerHealthUI: {fileID: 0}
+  playerHealthUI: {fileID: 8317994119868770131, guid: 3c557a9837de242aa80f3efe35fd9167, type: 3}
 --- !u!114 &2750309460781800869
 MonoBehaviour:
   m_ObjectHideFlags: 0
